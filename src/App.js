@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ToDos from './ToDos';
+
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      todos: ["A", "B", "C"],
+      currentText: 'f'
+    };
+  }
+
+  setText = (e) => {
+    const newValue = e.target.value;
+    this.setState({currentText: newValue})
+  }
+
+  addToDo = () => {
+    const newToDo = this.state.currentText;
+    const todos = [...this.state.todos, newToDo]
+    this.setState({ todos, currentText: '' })
+  }
+
   render() {
+    const {currentText, todos} = this.state;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div >
+        <ToDos 
+        currentText={currentText}
+        setText={this.setText}
+        addToDo={this.addToDo} 
+        todos={todos}/> 
+        
       </div>
     );
   }
